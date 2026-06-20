@@ -35,60 +35,85 @@
     .hero {
       min-height: 100dvh;
       display: grid;
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: 5fr 6fr;
       align-items: center;
       max-width: 1280px;
       margin: 0 auto;
-      padding: 0 3rem;
-      gap: 4rem;
+      padding: 0 3rem 0 3.5rem;
+      gap: 3rem;
     }
 
-    .hero-left { display: flex; flex-direction: column; gap: 1.75rem; }
+    .hero-left {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
 
-    .age-badge {
-      display: inline-flex;
+    /* Editorial eyebrow — line + label, bukan pill */
+    .hero-eyebrow {
+      display: flex;
       align-items: center;
-      gap: 0.5rem;
-      background: var(--accent-l);
-      color: var(--accent);
-      font-size: 0.8rem;
-      font-weight: 600;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      padding: 0.4rem 0.9rem;
-      border-radius: 999px;
-      width: fit-content;
+      gap: 0.75rem;
       opacity: 0;
-      animation: fadeUp 0.7s 0.1s ease forwards;
+      animation: fadeUp 0.6s 0.05s ease forwards;
+    }
+
+    .hero-eyebrow::before {
+      content: '';
+      display: block;
+      width: 2rem;
+      height: 1px;
+      background: var(--accent);
+      flex-shrink: 0;
+    }
+
+    .hero-eyebrow span {
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent);
     }
 
     .hero-headline {
-      font-size: clamp(2.8rem, 5.5vw, 4.5rem);
+      font-size: clamp(3rem, 5.8vw, 5rem);
       font-weight: 700;
-      line-height: 1.08;
-      letter-spacing: -0.03em;
+      line-height: 1.0;
+      letter-spacing: -0.035em;
       opacity: 0;
-      animation: fadeUp 0.7s 0.25s ease forwards;
+      animation: fadeUp 0.7s 0.2s ease forwards;
     }
 
     .hero-headline em {
       font-style: italic;
       color: var(--accent);
+      display: block;
+      padding-bottom: 0.05em; /* descender clearance */
     }
 
     .hero-sub {
-      font-size: 1.05rem;
+      font-size: 0.95rem;
       font-weight: 400;
       color: var(--muted);
-      line-height: 1.65;
-      max-width: 42ch;
+      line-height: 1.7;
+      max-width: 38ch;
       opacity: 0;
-      animation: fadeUp 0.7s 0.4s ease forwards;
+      animation: fadeUp 0.7s 0.35s ease forwards;
     }
 
     .hero-cta {
+      display: flex;
+      align-items: center;
+      gap: 1.25rem;
       opacity: 0;
-      animation: fadeUp 0.7s 0.55s ease forwards;
+      animation: fadeUp 0.7s 0.5s ease forwards;
+    }
+
+    .hero-date {
+      font-size: 0.72rem;
+      font-weight: 500;
+      color: var(--muted);
+      letter-spacing: 0.06em;
     }
 
     .btn {
@@ -98,36 +123,54 @@
       background: var(--accent);
       color: #fff;
       font-family: 'Outfit', sans-serif;
-      font-size: 0.9rem;
+      font-size: 0.88rem;
       font-weight: 600;
-      padding: 0.75rem 1.6rem;
+      padding: 0.72rem 1.5rem;
       border-radius: 999px;
       border: none;
       cursor: pointer;
       text-decoration: none;
+      white-space: nowrap;
       transition: transform 0.15s ease, box-shadow 0.15s ease;
-      box-shadow: 0 4px 18px -4px rgba(192,103,90,0.35);
+      box-shadow: 0 4px 18px -4px rgba(192,103,90,0.38);
     }
 
-    .btn:hover { transform: translateY(-2px); box-shadow: 0 8px 24px -4px rgba(192,103,90,0.45); }
+    .btn:hover  { transform: translateY(-2px); box-shadow: 0 8px 28px -4px rgba(192,103,90,0.48); }
     .btn:active { transform: translateY(0) scale(0.98); }
 
     /* ── HERO IMAGE SIDE ── */
     .hero-right {
+      position: relative;
       display: flex;
-      justify-content: center;
+      justify-content: flex-end;
       align-items: center;
       opacity: 0;
-      animation: fadeLeft 0.8s 0.3s ease forwards;
+      animation: fadeLeft 0.85s 0.15s ease forwards;
+    }
+
+    /* Large "18" display number behind the photo */
+    .hero-bg-number {
+      position: absolute;
+      right: -1rem;
+      bottom: -2rem;
+      font-size: clamp(10rem, 18vw, 16rem);
+      font-weight: 700;
+      line-height: 1;
+      letter-spacing: -0.05em;
+      color: transparent;
+      -webkit-text-stroke: 1.5px rgba(192,103,90,0.18);
+      user-select: none;
+      pointer-events: none;
+      z-index: 0;
     }
 
     .photo-frame {
       position: relative;
-      width: min(380px, 100%);
+      z-index: 1;
+      width: min(360px, 100%);
       aspect-ratio: 3/4;
-      border-radius: var(--radius);
+      border-radius: 20px;
       overflow: hidden;
-      box-shadow: 0 24px 60px -12px rgba(0,0,0,0.14);
     }
 
     .photo-frame img {
@@ -136,20 +179,148 @@
       display: block;
     }
 
-    .photo-sticker {
+    /* Warm tint overlay on photo */
+    .photo-frame::after {
+      content: '';
       position: absolute;
-      bottom: 1.25rem;
-      left: 1.25rem;
-      background: var(--surface);
-      border-radius: var(--radius-sm);
-      padding: 0.65rem 1rem;
-      font-size: 0.85rem;
-      font-weight: 600;
-      color: var(--text);
-      box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+      inset: 0;
+      background: linear-gradient(
+        160deg,
+        transparent 40%,
+        rgba(192,103,90,0.12) 100%
+      );
+      pointer-events: none;
     }
 
-    .photo-sticker span { color: var(--accent); }
+    /* Bottom info strip on photo */
+    .photo-strip {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      z-index: 2;
+      padding: 2rem 1.25rem 1.1rem;
+      background: linear-gradient(to top, rgba(28,25,23,0.72) 0%, transparent 100%);
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+    }
+
+    .photo-strip-name {
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: rgba(255,255,255,0.95);
+      letter-spacing: 0.02em;
+    }
+
+    .photo-strip-age {
+      font-size: 0.72rem;
+      font-weight: 500;
+      color: rgba(255,255,255,0.6);
+    }
+    /* ── MEMORIES — tilted infinite marquee ── */
+    .memories {
+      background: var(--bg);
+      padding: 4.5rem 0;
+      overflow: hidden;
+      position: relative;
+    }
+
+    /* Header sits above the strip, centered with page max-width */
+    .memories-header {
+      max-width: 1280px;
+      margin: 0 auto 2.75rem;
+      padding: 0 3.5rem;
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+    }
+
+    .memories-headline {
+      font-size: clamp(1.4rem, 2.6vw, 2rem);
+      font-weight: 700;
+      letter-spacing: -0.025em;
+      line-height: 1.15;
+      color: var(--text);
+    }
+
+    .memories-headline em {
+      font-style: italic;
+      color: var(--accent);
+    }
+
+    .memories-count {
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+      padding-bottom: 0.25rem;
+    }
+
+    /* The whole strip is rotated like the reference image */
+    .memories-stage {
+      transform: rotate(-4deg) translateY(0);
+      transform-origin: center center;
+      /* extra width so rotated edges don't show gaps */
+      width: 110%;
+      margin-left: -5%;
+    }
+
+    /* Marquee track */
+    .memories-track {
+      display: flex;
+      gap: 1rem;
+      width: max-content;
+      animation: marquee-right 28s linear infinite;
+    }
+
+    /* Pause on hover */
+    .memories-stage:hover .memories-track { animation-play-state: paused; }
+
+    @keyframes marquee-right {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
+
+    /* Individual photo card */
+    .mem-card {
+      flex-shrink: 0;
+      width: 280px;
+      height: 360px;
+      border-radius: 12px;
+      overflow: hidden;
+      position: relative;
+      /* slight individual tilt variation for organic feel */
+    }
+
+    .mem-card:nth-child(odd)  { margin-top: 1.5rem; }
+    .mem-card:nth-child(even) { margin-top: 0; }
+
+    .mem-card img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
+      /* desaturate + darken to match reference dark film look */
+      filter: brightness(0.72) saturate(0.6);
+      transition: filter 0.4s ease, transform 0.5s ease;
+    }
+
+    .mem-card:hover img {
+      filter: brightness(0.88) saturate(0.9);
+      transform: scale(1.04);
+    }
+
+    /* Vignette overlay */
+    .mem-card::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        160deg,
+        rgba(14,12,11,0.18) 0%,
+        rgba(14,12,11,0.55) 100%
+      );
+      pointer-events: none;
+      border-radius: inherit;
+    }
 
     /* ── DIVIDER ── */
     .section-divider {
@@ -351,29 +522,86 @@
     @media (max-width: 768px) {
       .hero {
         grid-template-columns: 1fr 1fr;
-        padding: 5rem 1.25rem 3rem;
-        gap: 1.25rem;
+        /* Konten mulai dari atas, tidak di-center — hapus spasi atas-bawah */
         min-height: auto;
-        align-items: center;
+        height: auto;
+        align-items: stretch;
+        padding: 3.5rem 1rem 1.5rem;
+        gap: 0.75rem;
       }
 
-      .hero-headline { font-size: clamp(1.6rem, 6vw, 2.4rem); }
-      .hero-sub { font-size: 0.85rem; }
+      /* Foto mengisi tinggi kolom kanan sepenuhnya */
+      .hero-right {
+        justify-content: flex-end;
+        align-items: stretch;
+        min-height: 0;
+      }
 
-      .photo-frame { width: 100%; aspect-ratio: 3/4; }
+      .photo-frame {
+        width: 100%;
+        height: 100%;
+        aspect-ratio: unset; /* biar ikut tinggi hero-left */
+        min-height: 220px;
+        border-radius: 12px;
+      }
 
-      .wishes { padding: 4rem 1.5rem; }
-      .wishes-inner { grid-template-columns: 1fr; gap: 1rem; }
+      .hero-left {
+        gap: 0.85rem;
+        padding-top: 0;
+        padding-bottom: 1rem;
+        justify-content: center;
+      }
 
-      .milestones { padding: 2rem 1.5rem 4rem; }
-      .milestones-grid { grid-template-columns: 1fr; }
+      .hero-eyebrow span { font-size: 0.58rem; }
+      .hero-eyebrow::before { width: 1.25rem; }
 
-      .quote-section { padding: 4rem 1.5rem; }
-      .quote-inner { grid-template-columns: 1fr; gap: 1.25rem; }
+      .hero-headline {
+        font-size: clamp(1.35rem, 5.5vw, 2rem);
+        letter-spacing: -0.02em;
+      }
 
-      .footer { flex-direction: column; gap: 0.5rem; text-align: center; padding: 2rem 1.5rem; }
+      .hero-sub { font-size: 0.75rem; line-height: 1.55; max-width: 100%; }
 
-      .section-divider { padding: 0 1.5rem; }
+      .hero-cta { gap: 0.65rem; flex-wrap: wrap; }
+      .btn { font-size: 0.72rem; padding: 0.6rem 1rem; white-space: nowrap; }
+      .hero-date { font-size: 0.62rem; }
+
+      .hero-bg-number {
+        font-size: clamp(6rem, 22vw, 10rem);
+        right: -0.5rem;
+        bottom: -1rem;
+      }
+
+      .photo-strip { padding: 1.5rem 0.75rem 0.75rem; }
+      .photo-strip-name { font-size: 0.68rem; }
+      .photo-strip-age  { font-size: 0.6rem; }
+
+      .memories-header { padding: 0 1.25rem; flex-direction: column; align-items: flex-start; gap: 0.5rem; margin-bottom: 1.5rem; }
+      .mem-card { width: 200px; height: 260px; }
+
+      .wishes { padding: 2.5rem 1.25rem; }
+      .wishes-inner { grid-template-columns: 1fr; gap: 0.75rem; }
+      .wishes-content h2 { font-size: clamp(1.3rem, 5vw, 1.8rem); }
+      .wishes-content p { font-size: 0.88rem; }
+
+      .milestones { padding: 1.25rem 1.25rem 2.5rem; }
+      .milestones-grid { grid-template-columns: 1fr; gap: 0.85rem; }
+      .milestone-card { padding: 1.25rem; }
+
+      .quote-section { padding: 2.5rem 1.25rem; }
+      .quote-inner { grid-template-columns: 1fr; gap: 1rem; }
+      blockquote { font-size: clamp(1rem, 4vw, 1.4rem); }
+
+      .footer { flex-direction: column; gap: 0.4rem; text-align: center; padding: 1.5rem 1.25rem; }
+      .section-divider { padding: 0 1.25rem; }
+    }
+
+    @media (max-width: 380px) {
+      .hero { padding: 3rem 0.75rem 1rem; gap: 0.5rem; }
+      .hero-headline { font-size: clamp(1.1rem, 6vw, 1.5rem); }
+      .hero-sub { font-size: 0.7rem; }
+      .btn { font-size: 0.65rem; padding: 0.5rem 0.8rem; }
+      .hero-bg-number { font-size: clamp(5rem, 20vw, 8rem); }
     }
   </style>
 </head>
@@ -384,28 +612,90 @@
 <!-- ── HERO ── -->
 <section class="hero">
   <div class="hero-left">
-    <div class="age-badge">✦ 18 Tahun</div>
+    <div class="hero-eyebrow"><span>Ambal Warsa Kaping 18</span></div>
     <h1 class="hero-headline">
       Sugeng<br>
       Ambal Warsa,<br>
-      <em>Mbakdissss</em>
+      <em>Adisti.</em>
     </h1>
     <p class="hero-sub">
       Dino iki kowe wis resmi mlangkah ing babak anyar sing luar biasa.
       18 tahun kebak tawa, tuwuh, lan cerita sing durung rampung ditulis.
     </p>
     <div class="hero-cta">
-      <a href="#wishes" class="btn">Wacanen Pesen Kanggo Kowe ↓</a>
+      <a href="#wishes" class="btn">Wacanen Pesen ↓</a>
+      <span class="hero-date">2026 · Adisti Kartika Sari</span>
     </div>
   </div>
 
   <div class="hero-right">
+    
     <div class="photo-frame">
       <img
-        src="image.jpeg"
-        alt="Birthday photo for Adisti"
+        src="image.png"
+        alt="Adisti Kartika Sari, 18 tahun"
         loading="eager"
       />
+      <div class="photo-strip">
+        <span class="photo-strip-name">Adisti Kartika Sari</span>
+        <span class="photo-strip-age">18 tahun</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="memories">
+  <div class="memories-header reveal">
+    <h2 class="memories-headline">Kenangan sing<br><em>ora terlupakan.</em></h2>
+    <span class="memories-count">
+  </div>
+
+  <!-- Tilted stage wraps the scrolling track -->
+  <div class="memories-stage">
+    <!-- Track is duplicated for seamless infinity loop -->
+    <div class="memories-track" aria-hidden="false">
+
+      <!-- Set A -->
+      <div class="mem-card">
+        <img src="WhatsApp Image 2026-06-20 at 23.01.22.jpeg" alt="Momen bersama Adisti" loading="lazy" />
+      </div>
+      <div class="mem-card">
+        <img src="WhatsApp Image 2026-06-20 at 23.03.42.jpeg" alt="Momen bersama Adisti" loading="lazy" />
+      </div>
+      <div class="mem-card">
+        <img src="WhatsApp Image 2026-06-20 at 23.04.35.jpeg" alt="Momen bersama Adisti" loading="lazy" />
+      </div>
+      <div class="mem-card">
+        <img src="WhatsApp Image 2026-06-20 at 23.05.06.jpeg" alt="Momen bersama Adisti" loading="lazy" />
+      </div>
+      <div class="mem-card">
+        <img src="WhatsApp Image 2026-06-20 at 23.06.01.jpeg" alt="Momen bersama Adisti" loading="lazy" />
+      </div>
+      <div class="mem-card">
+        <img src="WhatsApp Image 2026-06-20 at 23.08.44.jpeg" alt="Momen bersama Adisti" loading="lazy" />
+      </div>
+
+      <!-- Set B — exact duplicate for seamless loop -->
+      <div class="mem-card" aria-hidden="true">
+        <img src="WhatsApp Image 2026-06-20 at 23.01.22.jpeg" alt="" loading="lazy" />
+      </div>
+      <div class="mem-card" aria-hidden="true">
+        <img src="WhatsApp Image 2026-06-20 at 23.03.42.jpeg" alt="" loading="lazy" />
+      </div>
+      <div class="mem-card" aria-hidden="true">
+        <img src="WhatsApp Image 2026-06-20 at 23.04.35.jpeg" alt="" loading="lazy" />
+      </div>
+      <div class="mem-card" aria-hidden="true">
+        <img src="WhatsApp Image 2026-06-20 at 23.05.06.jpeg" alt="" loading="lazy" />
+      </div>
+      <div class="mem-card" aria-hidden="true">
+        <img src="WhatsApp Image 2026-06-20 at 23.06.01.jpeg" alt="" loading="lazy" />
+      </div>
+      <div class="mem-card" aria-hidden="true">
+        <img src="WhatsApp Image 2026-06-20 at 23.08.44.jpeg" alt="" loading="lazy" />
+      </div>
+
     </div>
   </div>
 </section>
