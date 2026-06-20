@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Happy 18th Birthday, Adisti!</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:       #f9f7f5;
+      --surface:  #ffffff;
+      --text:     #1c1917;
+      --muted:    #78716c;
+      --accent:   #c0675a;
+      --accent-l: #f3e8e6;
+      --radius:   16px;
+      --radius-sm: 8px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Outfit', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100dvh;
+      overflow-x: hidden;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100dvh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 3rem;
+      gap: 4rem;
+    }
+
+    .hero-left { display: flex; flex-direction: column; gap: 1.75rem; }
+
+    .age-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--accent-l);
+      color: var(--accent);
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 0.4rem 0.9rem;
+      border-radius: 999px;
+      width: fit-content;
+      opacity: 0;
+      animation: fadeUp 0.7s 0.1s ease forwards;
+    }
+
+    .hero-headline {
+      font-size: clamp(2.8rem, 5.5vw, 4.5rem);
+      font-weight: 700;
+      line-height: 1.08;
+      letter-spacing: -0.03em;
+      opacity: 0;
+      animation: fadeUp 0.7s 0.25s ease forwards;
+    }
+
+    .hero-headline em {
+      font-style: italic;
+      color: var(--accent);
+    }
+
+    .hero-sub {
+      font-size: 1.05rem;
+      font-weight: 400;
+      color: var(--muted);
+      line-height: 1.65;
+      max-width: 42ch;
+      opacity: 0;
+      animation: fadeUp 0.7s 0.4s ease forwards;
+    }
+
+    .hero-cta {
+      opacity: 0;
+      animation: fadeUp 0.7s 0.55s ease forwards;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--accent);
+      color: #fff;
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 600;
+      padding: 0.75rem 1.6rem;
+      border-radius: 999px;
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+      box-shadow: 0 4px 18px -4px rgba(192,103,90,0.35);
+    }
+
+    .btn:hover { transform: translateY(-2px); box-shadow: 0 8px 24px -4px rgba(192,103,90,0.45); }
+    .btn:active { transform: translateY(0) scale(0.98); }
+
+    /* ── HERO IMAGE SIDE ── */
+    .hero-right {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      opacity: 0;
+      animation: fadeLeft 0.8s 0.3s ease forwards;
+    }
+
+    .photo-frame {
+      position: relative;
+      width: min(380px, 100%);
+      aspect-ratio: 3/4;
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: 0 24px 60px -12px rgba(0,0,0,0.14);
+    }
+
+    .photo-frame img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .photo-sticker {
+      position: absolute;
+      bottom: 1.25rem;
+      left: 1.25rem;
+      background: var(--surface);
+      border-radius: var(--radius-sm);
+      padding: 0.65rem 1rem;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text);
+      box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+    }
+
+    .photo-sticker span { color: var(--accent); }
+
+    /* ── DIVIDER ── */
+    .section-divider {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 3rem;
+    }
+    .section-divider hr { border: none; border-top: 1px solid #e7e2de; }
+
+    /* ── WISHES SECTION ── */
+    .wishes {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 6rem 3rem;
+    }
+
+    .wishes-inner {
+      display: grid;
+      grid-template-columns: 1fr 1.8fr;
+      gap: 4rem;
+      align-items: start;
+    }
+
+    .wishes-label {
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      padding-top: 0.4rem;
+    }
+
+    .wishes-content h2 {
+      font-size: clamp(1.6rem, 3vw, 2.4rem);
+      font-weight: 700;
+      letter-spacing: -0.025em;
+      line-height: 1.18;
+      margin-bottom: 1.25rem;
+    }
+
+    .wishes-content h2 em {
+      font-style: italic;
+      color: var(--accent);
+    }
+
+    .wishes-content p {
+      font-size: 1rem;
+      color: var(--muted);
+      line-height: 1.75;
+      max-width: 55ch;
+      margin-bottom: 1rem;
+    }
+
+    /* ── MILESTONE GRID ── */
+    .milestones {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 2rem 3rem 6rem;
+    }
+
+    .milestones-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.25rem;
+    }
+
+    .milestone-card {
+      background: var(--surface);
+      border-radius: var(--radius);
+      padding: 1.75rem;
+      border: 1px solid #ede9e5;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .milestone-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 32px -8px rgba(0,0,0,0.1);
+    }
+
+    .milestone-card:nth-child(2) { background: var(--accent-l); border-color: transparent; }
+
+    .milestone-num {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: var(--accent);
+      letter-spacing: -0.04em;
+      line-height: 1;
+      margin-bottom: 0.5rem;
+    }
+
+    .milestone-card:nth-child(1) .milestone-num,
+    .milestone-card:nth-child(3) .milestone-num { color: var(--text); }
+
+    .milestone-title {
+      font-size: 0.95rem;
+      font-weight: 600;
+      margin-bottom: 0.35rem;
+    }
+
+    .milestone-desc {
+      font-size: 0.85rem;
+      color: var(--muted);
+      line-height: 1.55;
+    }
+
+    /* ── QUOTE SECTION ── */
+    .quote-section {
+      background: var(--text);
+      color: var(--bg);
+      padding: 6rem 3rem;
+    }
+
+    .quote-inner {
+      max-width: 1280px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 2.2fr;
+      gap: 4rem;
+      align-items: center;
+    }
+
+    .quote-tag {
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.45);
+    }
+
+    blockquote {
+      font-size: clamp(1.3rem, 2.5vw, 1.9rem);
+      font-weight: 400;
+      line-height: 1.5;
+      letter-spacing: -0.015em;
+    }
+
+    blockquote strong { color: var(--accent); font-weight: 700; }
+
+    .quote-author {
+      margin-top: 1.25rem;
+      font-size: 0.85rem;
+      color: rgba(255,255,255,0.5);
+    }
+
+    /* ── FOOTER ── */
+    .footer {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 3rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .footer-name {
+      font-size: 1rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    .footer-note {
+      font-size: 0.82rem;
+      color: var(--muted);
+    }
+
+    .footer-heart {
+      font-size: 1.1rem;
+      color: var(--accent);
+    }
+
+    /* ── CONFETTI CANVAS ── */
+    #confetti-canvas {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      pointer-events: none;
+      z-index: 50;
+    }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeLeft {
+      from { opacity: 0; transform: translateX(24px); }
+      to   { opacity: 1; transform: translateX(0); }
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(22px);
+      transition: opacity 0.65s ease, transform 0.65s ease;
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      .hero {
+        grid-template-columns: 1fr 1fr;
+        padding: 5rem 1.25rem 3rem;
+        gap: 1.25rem;
+        min-height: auto;
+        align-items: center;
+      }
+
+      .hero-headline { font-size: clamp(1.6rem, 6vw, 2.4rem); }
+      .hero-sub { font-size: 0.85rem; }
+
+      .photo-frame { width: 100%; aspect-ratio: 3/4; }
+
+      .wishes { padding: 4rem 1.5rem; }
+      .wishes-inner { grid-template-columns: 1fr; gap: 1rem; }
+
+      .milestones { padding: 2rem 1.5rem 4rem; }
+      .milestones-grid { grid-template-columns: 1fr; }
+
+      .quote-section { padding: 4rem 1.5rem; }
+      .quote-inner { grid-template-columns: 1fr; gap: 1.25rem; }
+
+      .footer { flex-direction: column; gap: 0.5rem; text-align: center; padding: 2rem 1.5rem; }
+
+      .section-divider { padding: 0 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+<canvas id="confetti-canvas"></canvas>
+
+<!-- ── HERO ── -->
+<section class="hero">
+  <div class="hero-left">
+    <div class="age-badge">✦ 18 Tahun</div>
+    <h1 class="hero-headline">
+      Sugeng<br>
+      Ambal Warsa,<br>
+      <em>Mbakdissss</em>
+    </h1>
+    <p class="hero-sub">
+      Dino iki kowe wis resmi mlangkah ing babak anyar sing luar biasa.
+      18 tahun kebak tawa, tuwuh, lan cerita sing durung rampung ditulis.
+    </p>
+    <div class="hero-cta">
+      <a href="#wishes" class="btn">Wacanen Pesen Kanggo Kowe ↓</a>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="photo-frame">
+      <img
+        src="image.jpeg"
+        alt="Birthday photo for Adisti"
+        loading="eager"
+      />
+    </div>
+  </div>
+</section>
+
+<!-- ── DIVIDER ── -->
+<div class="section-divider"><hr /></div>
+
+<!-- ── WISHES SECTION ── -->
+<section class="wishes" id="wishes">
+  <div class="wishes-inner reveal">
+    <p class="wishes-label">Pesen & Donga</p>
+    <div class="wishes-content">
+      <h2>Tuwuh dadi cahaya<br>sing <em>ora bakal sirep.</em></h2>
+      <p>
+        Adisti, kowe iku bukti nyata yen kabecikan lan kecerdasan bisa mlaku bebarengan.
+        Ing umurmu sing ke-18 iki, mugo-mugo saben langkah sing kowe lakoni
+        nggawa kowe luwih cedhak karo versi paling apik saka awakmu dhewe.
+      </p>
+      <p>
+        Mugo-mugo perjalananmu tansah dipadhang harapan, dikuatake dening wong-wong
+        sing tresna karo kowe, lan diwarnai keberanian kanggo ngimpi sing luwih gedhe.
+        Ojo lali — rejekimu sak wareg-wareging weteng, nasibmu sak apik-apike uripmu.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ── MILESTONE GRID ── -->
+<section class="milestones">
+  <div class="milestones-grid">
+
+    <div class="milestone-card reveal">
+      <div class="milestone-num">18</div>
+      <div class="milestone-title">Tahun Kebak Warna</div>
+      <div class="milestone-desc">
+        Saben tahun iku bab anyar — lan bab sing ke-18 iki sing paling nggegirisi senenge.
+      </div>
+    </div>
+
+    <div class="milestone-card reveal" style="transition-delay: 0.1s">
+      <div class="milestone-num">∞</div>
+      <div class="milestone-title">Kemungkinan Tanpa Wates</div>
+      <div class="milestone-desc">
+        Kowe lagi wae mbukak pintu menyang jagad sing luwih amba. Gapailah kabeh iku.
+      </div>
+    </div>
+
+    <div class="milestone-card reveal" style="transition-delay: 0.2s">
+      <div class="milestone-num">1</div>
+      <div class="milestone-title">Dino Sing Istimewa</div>
+      <div class="milestone-desc">
+        Sak antarane 365 dino, dino iki duwekmu kabeh. Nikmati saben detike, yo.
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ── QUOTE SECTION ── -->
+<section class="quote-section">
+  <div class="quote-inner reveal">
+    <p class="quote-tag">Pitutur</p>
+    <div>
+      <blockquote>
+        "Urip iku urup — kudu menehi <strong>padhang marang liyan,</strong>
+        ojo mung ngobong awakmu dhewe."
+      </blockquote>
+      <p class="quote-author">— Falsafah Jawa</p>
+    </div>
+  </div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer class="footer">
+  <span class="footer-name">Adisti Kartika Sari</span>
+  
+  <span class="footer-note">18 Tahun · Mugo-mugo tansah bungah lan bahagia</span>
+  <span class="footer-heart">by riyal</span>
+</footer>
+
+<script>
+  /* ── Scroll reveal ── */
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.15 });
+
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  /* ── Confetti ── */
+  const canvas = document.getElementById('confetti-canvas');
+  const ctx = canvas.getContext('2d');
+  let W, H, particles = [];
+
+  const COLORS = ['#c0675a','#e8b4ae','#f3e8e6','#1c1917','#f9f7f5','#d4a59a'];
+
+  function resize() {
+    W = canvas.width  = window.innerWidth;
+    H = canvas.height = window.innerHeight;
+  }
+  resize();
+  window.addEventListener('resize', resize);
+
+  function createParticle() {
+    return {
+      x: Math.random() * W,
+      y: -10,
+      r: Math.random() * 6 + 3,
+      color: COLORS[Math.floor(Math.random() * COLORS.length)],
+      speed: Math.random() * 2 + 1,
+      angle: Math.random() * 360,
+      spin:  (Math.random() - 0.5) * 4,
+      drift: (Math.random() - 0.5) * 1.5,
+      opacity: Math.random() * 0.6 + 0.4,
+      shape: Math.random() > 0.5 ? 'rect' : 'circle',
+    };
+  }
+
+  const DURATION_MS = 10000; // total durasi efek: 10 detik
+  const SPAWN_MS    = 7000;  // spawn partikel selama 7 detik pertama
+  let startTime = null;
+  let lastSpawn = 0;
+  let running = true;
+
+  function loop(now) {
+    if (!running) return;
+    if (!startTime) startTime = now;
+    const elapsed = now - startTime;
+
+    ctx.clearRect(0, 0, W, H);
+
+    // Spawn 2 partikel tiap ~45ms selama SPAWN_MS pertama
+    if (elapsed < SPAWN_MS && particles.length < 160) {
+      if (now - lastSpawn > 45) {
+        particles.push(createParticle());
+        particles.push(createParticle());
+        lastSpawn = now;
+      }
+    }
+
+    particles.forEach((p, i) => {
+      p.y     += p.speed;
+      p.x     += p.drift;
+      p.angle += p.spin;
+
+      ctx.save();
+      ctx.globalAlpha = p.opacity;
+      ctx.fillStyle   = p.color;
+      ctx.translate(p.x, p.y);
+      ctx.rotate(p.angle * Math.PI / 180);
+
+      if (p.shape === 'rect') {
+        ctx.fillRect(-p.r, -p.r / 2, p.r * 2, p.r);
+      } else {
+        ctx.beginPath();
+        ctx.arc(0, 0, p.r / 2, 0, Math.PI * 2);
+        ctx.fill();
+      }
+      ctx.restore();
+
+      if (p.y > H + 20) particles.splice(i, 1);
+    });
+
+    // Berhenti setelah 10 detik dan semua partikel sudah keluar layar
+    if (elapsed > DURATION_MS && particles.length === 0) { running = false; return; }
+    requestAnimationFrame(loop);
+  }
+
+  requestAnimationFrame(loop);
+</script>
+
+</body>
+</html>
